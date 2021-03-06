@@ -37,7 +37,9 @@
     <find-sdkroot version="10.9"/>
     <fail unless="sdkroot" message="Failed to find the macOS SDK."/>
 
-    <property name="macosx-version-min" value="10.9"/>
+    <condition property="macosx-version-min" value="11.0" else="10.9">
+        <isset property="build.arch.arm"/>
+    </condition>
 
     <property name="module.lwjgl.rel" value="../../../../${module.lwjgl}"/>
 
@@ -59,6 +61,7 @@
                 <arg line="-c -std=c11 -ObjC" unless:set="cpp"/>
                 <arg line="-c -std=c++11" if:set="cpp"/>
                 <arg line="-O3 -flto -fPIC @{flags} -DNDEBUG -DLWJGL_MACOS -DLWJGL_${build.arch} -isysroot ${sdkroot} -mmacosx-version-min=${macosx-version-min}"/>
+                <arg line="-target aarch64-apple-darwin -arch arm64" if:set="build.arch.arm"/>
 
                 <arg value="-I${jni.headers}"/>
                 <arg value="-I${jni.headers}/darwin"/>
@@ -128,7 +131,8 @@
             <beforeLink/>
             <apply executable="${clang}" failonerror="true" parallel="true" taskname="Linker" unless:set="lib-uptodate">
                 <srcfile/>
-                <arg line='-dynamiclib -Wl,-no_compact_unwind -mmacosx-version-min=${macosx-version-min} -o ${lib}/lib${name}.dylib -O3 -flto -fPIC'/>
+                <arg line='-dynamiclib -Wl,-no_compact_unwind -mmacosx-version-min=${macosx-version-min} -o ${lib.arch}/lib${name}.dylib -O3 -flto -fPIC'/>
+                <arg line="-target aarch64-apple-darwin -arch arm64" if:set="build.arch.arm"/>
                 <fileset dir="${dest}" includes="*.o"/>
                 <link/>
             </apply>
@@ -234,7 +238,11 @@
         </build>
 
         <!-- Meow -->
-        <build module="meow" simple="true" flags="-Werror -Wfatal-errors -maes" if:true="${binding.meow}"/>
+        <local name="meow.flags"/>
+        <condition property="meow.flags" value="" else="-maes">
+            <isset property="build.arch.arm"/>
+        </condition>
+        <build module="meow" simple="true" flags="-Werror -Wfatal-errors ${meow.flags}" if:true="${binding.meow}"/>
 
         <!-- NanoVG -->
         <build module="nanovg" simple="true" if:true="${binding.nanovg}">
@@ -396,7 +404,15 @@
         <sequential unless:set="native-dependencies-uptodate">
             <mkdir dir="${lib}/${platform}/${build.arch}"/>
 
-            <parallel threadsPerProcessor="4" failonany="true">
+            <update-dependency module="assimp" artifact="libassimp.dylib"/>
+            <update-dependency module="bgfx" artifact="libbgfx.dylib"/>
+            <update-dependency module="jemalloc" artifact="libjemalloc.dylib"/>
+            <update-dependency module="glfw" artifact="libglfw.dylib"/>
+            <update-dependency module="openal" artifact="libopenal.dylib"/>
+            <update-dependency module="openvr" artifact="libopenvr_api.dylib"/>
+            <update-dependency module="opus" artifact="libopus.dylib"/>
+            <update-dependency module="shaderc" artifact="libshaderc.dylib"/>
+            <update-dependency module="spvc" artifact="libspirv-cross.dylib"/>
 
             <update-dependency name="Assimp" artifact="${build.arch}/libassimp.dylib" dest="${lib}" if:true="${binding.assimp}"/>
             <update-dependency name="bgfx" artifact="${build.arch}/libbgfx.dylib" dest="${lib}" if:true="${binding.bgfx}"/>

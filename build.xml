@@ -1199,17 +1199,35 @@
         <!-- GLFW -->
         <release-module package="org.lwjgl.glfw" name="glfw" title="GLFW" if:true="${binding.glfw}">
             <natives>
-                <get-release url="linux/x64/libglfw.so"/>
-                <get-release url="linux/x64/libglfw_wayland.so"/>
-                <get-release url="macosx/x64/libglfw.dylib"/>
-                <get-release url="windows/x64/glfw.dll"/>
-                <get-release url="windows/x86/glfw32.dll"/>
+                <get-release platform="linux" arch="x64" file="libglfw.so"/>
+                <get-release platform="linux" arch="x64" file="libglfw.so.git"/>
+                <get-release platform="linux" arch="x64" file="libglfw_wayland.so"/>
+                <get-release platform="linux" arch="x64" file="libglfw_wayland.so.git"/>
 
-                <get-release url="linux/x64/libglfw.so.git"/>
-                <get-release url="linux/x64/libglfw_wayland.so.git"/>
-                <get-release url="macosx/x64/libglfw.dylib.git"/>
-                <get-release url="windows/x64/glfw.dll.git"/>
-                <get-release url="windows/x86/glfw32.dll.git"/>
+                <get-release platform="linux" arch="arm64" file="libglfw.so"/>
+                <get-release platform="linux" arch="arm64" file="libglfw.so.git"/>
+                <get-release platform="linux" arch="arm64" file="libglfw_wayland.so"/>
+                <get-release platform="linux" arch="arm64" file="libglfw_wayland.so.git"/>
+
+                <get-release platform="linux" arch="arm32" file="libglfw.so"/>
+                <get-release platform="linux" arch="arm32" file="libglfw.so.git"/>
+                <get-release platform="linux" arch="arm32" file="libglfw_wayland.so"/>
+                <get-release platform="linux" arch="arm32" file="libglfw_wayland.so.git"/>
+
+                <get-release platform="macos" arch="x64" file="libglfw.dylib"/>
+                <get-release platform="macos" arch="x64" file="libglfw.dylib.git"/>
+
+                <get-release platform="macos" arch="arm64" file="libglfw.dylib"/>
+                <get-release platform="macos" arch="arm64" file="libglfw.dylib.git"/>
+
+                <get-release platform="windows" arch="x64" file="glfw.dll"/>
+                <get-release platform="windows" arch="x64" file="glfw.dll.git"/>
+
+                <get-release platform="windows" arch="x86" file="glfw.dll"/>
+                <get-release platform="windows" arch="x86" file="glfw.dll.git"/>
+
+                <get-release platform="windows" arch="arm64" file="glfw.dll"/>
+                <get-release platform="windows" arch="arm64" file="glfw.dll.git"/>
             </natives>
         </release-module>
 
@@ -1232,13 +1250,26 @@
         <release-module package="org.lwjgl.util.lz4" name="lz4" native-library="lwjgl_lz4" title="lz4" if:true="${binding.lz4}"/>
 
         <!-- Meow hash -->
-        <release-module package="org.lwjgl.util.meow" name="meow" native-library="lwjgl_meow" title="Meow hash" if:true="${binding.meow}"/>
+        <release-module name="meow" title="Meow hash" if:true="${binding.meow}">
+            <natives>
+                <get-release platform="linux" arch="x64" file="liblwjgl_meow.so"/>
+                <get-release platform="linux" arch="arm64" file="liblwjgl_meow.so"/>
+                <get-release platform="macos" arch="x64" file="liblwjgl_meow.dylib"/>
+                <get-release platform="macos" arch="arm64" file="liblwjgl_meow.dylib"/>
+                <get-release platform="windows" arch="x64" file="lwjgl_meow.dll"/>
+                <get-release platform="windows" arch="x86" file="lwjgl_meow.dll"/>
+                <get-release platform="windows" arch="arm64" file="lwjgl_meow.dll"/>
+            </natives>
+        </release-module>
+
+        <!-- meshoptimizer -->
+        <release-module name="meshoptimizer" native-library="lwjgl_meshoptimizer" title="meshoptimizer" if:true="${binding.meshoptimizer}"/>
 
         <!-- NanoVG -->
         <release-module package="org.lwjgl.nanovg" name="nanovg" native-library="lwjgl_nanovg" title="NanoVG" if:true="${binding.nanovg}"/>
 
         <!-- Native File Dialog -->
-        <release-module package="org.lwjgl.util.nfd" name="nfd" native-library="lwjgl_nfd" title="Native File Dialog" if:true="${binding.nfd}"/>
+        <release-module name="nfd" native-library="lwjgl_nfd" title="Native File Dialog" if:true="${binding.nfd}"/>
 
         <!-- Nuklear -->
         <release-module package="org.lwjgl.nuklear" name="nuklear" native-library="lwjgl_nuklear" title="Nuklear" if:true="${binding.nuklear}"/>
@@ -1249,15 +1280,29 @@
         <!-- OpenAL -->
         <release-module package="org.lwjgl.openal" name="openal" title="OpenAL" if:true="${binding.openal}">
             <natives>
-                <get-release url="linux/x64/libopenal.so"/>
-                <get-release url="macosx/x64/libopenal.dylib"/>
-                <get-release url="windows/x64/OpenAL.dll"/>
-                <get-release url="windows/x86/OpenAL32.dll"/>
+                <get-release platform="linux" arch="x64" file="libopenal.so"/>
+                <get-release platform="linux" arch="x64" file="libopenal.so.git"/>
 
-                <get-release url="linux/x64/libopenal.so.git"/>
-                <get-release url="macosx/x64/libopenal.dylib.git"/>
-                <get-release url="windows/x64/OpenAL.dll.git"/>
-                <get-release url="windows/x86/OpenAL32.dll.git"/>
+                <get-release platform="linux" arch="arm64" file="libopenal.so"/>
+                <get-release platform="linux" arch="arm64" file="libopenal.so.git"/>
+
+                <get-release platform="linux" arch="arm32" file="libopenal.so"/>
+                <get-release platform="linux" arch="arm32" file="libopenal.so.git"/>
+
+                <get-release platform="macos" arch="x64" file="libopenal.dylib"/>
+                <get-release platform="macos" arch="x64" file="libopenal.dylib.git"/>
+
+                <get-release platform="macos" arch="arm64" file="libopenal.dylib"/>
+                <get-release platform="macos" arch="arm64" file="libopenal.dylib.git"/>
+
+                <get-release platform="windows" arch="x64" file="OpenAL.dll"/>
+                <get-release platform="windows" arch="x64" file="OpenAL.dll.git"/>
+
+                <get-release platform="windows" arch="x86" file="OpenAL.dll"/>
+                <get-release platform="windows" arch="x86" file="OpenAL.dll.git"/>
+
+                <get-release platform="windows" arch="arm64" file="OpenAL.dll"/>
+                <get-release platform="windows" arch="arm64" file="OpenAL.dll.git"/>
             </natives>
         </release-module>
 
@@ -1308,7 +1353,13 @@
         <release-module package="org.lwjgl.util.remotery" name="remotery" native-library="lwjgl_remotery" title="remotery" if:true="${binding.remotery}"/>
 
         <!-- rpmalloc -->
-        <release-module package="org.lwjgl.system.rpmalloc" name="rpmalloc" native-library="lwjgl_rpmalloc" title="rpmalloc" if:true="${binding.rpmalloc}"/>
+        <release-module name="rpmalloc" native-library="lwjgl_rpmalloc" title="rpmalloc" if:true="${binding.rpmalloc}"/>
+
+        <!-- shaderc -->
+        <release-module name="shaderc" native-library="shaderc" title="Shaderc" if:true="${binding.shaderc}"/>
+
+        <!-- SPIRV-Cross -->
+        <release-module name="spvc" native-library="spirv-cross" title="SPIRV-Cross" if:true="${binding.spvc}"/>
 
         <!-- SSE -->
         <release-module package="org.lwjgl.util.simd" name="sse" native-library="lwjgl_sse" title="SSE" if:true="${binding.sse}"/>
@@ -1331,8 +1382,10 @@
         <!-- Vulkan -->
         <release-module package="org.lwjgl.vulkan" name="vulkan" title="Vulkan" if:true="${binding.vulkan}">
             <natives>
-                <get-release url="macosx/x64/libMoltenVK.dylib"/>
-                <get-release url="macosx/x64/libMoltenVK.dylib.git"/>
+                <get-release platform="macos" arch="x64" file="libMoltenVK.dylib"/>
+                <get-release platform="macos" arch="x64" file="libMoltenVK.dylib.git"/>
+                <get-release platform="macos" arch="arm64" file="libMoltenVK.dylib"/>
+                <get-release platform="macos" arch="arm64" file="libMoltenVK.dylib.git"/>
             </natives>
         </release-module>
 

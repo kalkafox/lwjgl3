@@ -443,13 +443,15 @@ EXPORTS
 
             <parallel threadsPerProcessor="4" failonany="true">
 
-            <update-dependency name="Assimp" artifact="${build.arch}/assimp${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.assimp}"/>
-            <update-dependency name="bgfx" artifact="${build.arch}/bgfx${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.bgfx}"/>
-            <update-dependency name="jemalloc" artifact="${build.arch}/jemalloc${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.jemalloc}"/>
-            <update-dependency name="GLFW" artifact="${build.arch}/glfw${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.glfw}"/>
-            <update-dependency name="OpenAL32" artifact="${build.arch}/OpenAL${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.openal}"/>
-            <update-dependency name="OpenVR" artifact="${build.arch}/openvr_api${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.openvr}"/>
-            <update-dependency name="Opus" artifact="${build.arch}/opus${LIB_POSTFIX}.dll" dest="${lib}" if:true="${binding.opus}"/>
+            <update-dependency module="assimp" artifact="assimp.dll"/>
+            <update-dependency module="bgfx" artifact="bgfx.dll"/>
+            <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
+            <update-dependency module="glfw" artifact="glfw.dll"/>
+            <update-dependency module="openal" artifact="OpenAL.dll"/>
+            <update-dependency module="openvr" artifact="openvr_api.dll"/>
+            <update-dependency module="opus" artifact="opus.dll"/>
+            <update-dependency module="shaderc" artifact="shaderc.dll"/>
+            <update-dependency module="spvc" artifact="spirv-cross.dll"/>
 
             </parallel>
 
